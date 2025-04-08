@@ -28,19 +28,13 @@ export default async function Home() {
         align="flex-start"
       >
         <CreateTask />
-        <Flex vertical style={{ width: "100%", marginTop: '32px' }}>
-          {tasks[TaskStatus.OPEN].length > 0 && (
-            <TaskList tasks={tasks[TaskStatus.OPEN]} type={TaskStatus.OPEN} />
-          )}
-          {tasks[TaskStatus.IN_PROGRESS].length > 0 && (
-            <TaskList
-              tasks={tasks[TaskStatus.IN_PROGRESS]}
-              type={TaskStatus.IN_PROGRESS}
-            />
-          )}
-          {tasks[TaskStatus.DONE].length > 0 && (
-            <TaskList tasks={tasks[TaskStatus.DONE]} type={TaskStatus.DONE} />
-          )}
+        <Flex vertical style={{ width: "100%", marginTop: '32px' }} gap={32}>
+          <TaskList tasks={tasks[TaskStatus.OPEN]} type={TaskStatus.OPEN} />
+          <TaskList
+            tasks={tasks[TaskStatus.IN_PROGRESS]}
+            type={TaskStatus.IN_PROGRESS}
+          />
+          <TaskList tasks={tasks[TaskStatus.DONE]} type={TaskStatus.DONE} />
         </Flex>
       </Flex>
     </Flex>
