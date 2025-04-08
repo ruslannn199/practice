@@ -1,0 +1,27 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=rootUser
+      - POSTGRES_PASSWORD=somePwd
+      - POSTGRES_DB=todo
+    ports:
+      - "5555:5555"
+    restart: always
+    volumes:
+      - data:/var/lib/postgresql/data
+    command: -p 5555
+
+  pgadmin:
+    container_name: todo_admin
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=rootUser@mail.ru
+      - PGADMIN_DEFAULT_PASSWORD=1234
+    ports:
+      - "80:80"
+    restart: always
+
+volumes:
+  data:
