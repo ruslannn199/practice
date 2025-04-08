@@ -1,9 +1,13 @@
-import { Task, TaskStatus } from '@/server/types';
-import { CheckCircleOutlined, PlayCircleFilled, SnippetsOutlined } from '@ant-design/icons';
+import { Task, TaskStatus } from "@/server/types";
+import {
+  CheckCircleOutlined,
+  PlayCircleFilled,
+  SnippetsOutlined,
+} from "@ant-design/icons";
 
 type Props = {
   task: Task;
-}
+};
 
 export const ChangeStatus = ({ task }: Props) => {
   switch (task.status) {
@@ -15,4 +19,4 @@ export const ChangeStatus = ({ task }: Props) => {
     default:
       return <CheckCircleOutlined />;
   }
-}
+};

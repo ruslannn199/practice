@@ -1,9 +1,10 @@
-import { Task } from "@/server/types";
+import { Task, TaskStatus } from "@/server/types";
 import { Button, Flex } from "antd";
 import { ChangeStatus } from "../ChangeStatus";
 import styles from "./TaskItem.module.css";
 import { BellFilled, DeleteOutlined } from "@ant-design/icons";
 import { deleteTaskAction } from './deleteTaskAction';
+import { changeStatusAction } from './changeStatusAction';
 type Props = {
   task: Task;
 };
@@ -13,12 +14,18 @@ export const TaskItem = ({ task }: Props) => {
     await deleteTaskAction(task.id);
   }
 
+  const handleChangeStatusClick = async () => {
+    if (task.status !== TaskStatus.DONE) {
+      await changeStatusAction(task);
+    }
+  }
+
   return (
     <Flex vertical className={styles.wrapper} gap={8}>
       <div>{task.name}</div>
       <Flex className={styles.info} justify="space-between">
         <Flex gap={16} align="center">
-          <Button variant="outlined" icon={<ChangeStatus task={task} />} />
+          <Button variant="outlined" icon={<ChangeStatus task={task} />} onClick={handleChangeStatusClick} />
           <div>
             до{" "}
             {new Date(task.deadline).toLocaleDateString("ru-RU", {
