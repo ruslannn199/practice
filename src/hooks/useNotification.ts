@@ -12,10 +12,10 @@ export const useNotification = (tasks: Task[]) => {
       .filter((task) => tasksToNotify.includes(task.id))
       .forEach((task: Task) => {
         notification.info({
-          message: "Уведомление",
-          description: `Задача ${task.name} истечет ${new Date(
-            task.deadline
-          ).toLocaleDateString("ru-RU", {
+          message: "Напоминание",
+          description: `Срок выполнения задачи "${
+            task.name
+          }" истекает ${new Date(task.deadline).toLocaleDateString("ru-RU", {
             day: "numeric",
             month: "short",
             year: "numeric",
