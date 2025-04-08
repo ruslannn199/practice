@@ -6,6 +6,7 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Form, Input, Modal } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import React, { FC, useState } from "react";
+import { createTaskAction } from './createTaskAction';
 
 type Values = Omit<Task, "id" | "status">;
 
@@ -16,14 +17,7 @@ export const CreateTask: FC = () => {
   const onCreate = async (values: Values) => {
     const dayjs = (await import('dayjs')).default;
     const deadline = dayjs(values.deadline).toDate().toUTCString();
-
-    await request('tasks', {
-      method: 'POST',
-      body: JSON.stringify({ ...values, status: TaskStatus.OPEN, deadline }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await createTaskAction({ ...values, status: TaskStatus.OPEN, deadline });
 
     setOpen(false);
   };

@@ -20,12 +20,10 @@ export class TaskController {
   };
 
   public static getAll: RequestHandler = async (req, res) => {
-    const { limit = "10", offset = "0" } = req.query;
     const { rows } = await pool.query<Task>(
       `
-      SELECT * FROM tasks ORDER BY deadline LIMIT $1 OFFSET $2
-      `,
-      [parseInt(limit as string, 10), parseInt(offset as string, 10)]
+      SELECT * FROM tasks ORDER BY deadline
+      `
     );
 
     res.status(200).json({ items: rows });

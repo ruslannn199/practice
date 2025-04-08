@@ -4,7 +4,7 @@ import { request } from "@/utils";
 import { Divider, Flex } from "antd";
 
 export default async function Home() {
-  const tasks = (await request<PaginatedResponse<Task>>("tasks")).items.reduce(
+  const tasks = ((await (await request("tasks", { next: { tags: ['task'] } })).json() as PaginatedResponse<Task>).items || []).reduce(
     (acc: Record<TaskStatus, Task[]>, task) => {
       acc[task.status].push(task);
 
