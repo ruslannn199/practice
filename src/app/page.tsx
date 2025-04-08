@@ -1,4 +1,4 @@
-import { CreateTask, Title } from "@/components";
+import { CreateTask, TaskList, Title } from "@/components";
 import { PaginatedResponse, Task, TaskStatus } from "@/server/types";
 import { request } from "@/utils";
 import { Divider, Flex } from "antd";
@@ -17,7 +17,7 @@ export default async function Home() {
     }
   );
 
-  console.log("tasks :>> ", tasks);
+
   return (
     <Flex vertical align="center" style={{ width: "100%" }}>
       <Title />
@@ -28,6 +28,20 @@ export default async function Home() {
         align="flex-start"
       >
         <CreateTask />
+        <Flex vertical style={{ width: "100%", marginTop: '32px' }}>
+          {tasks[TaskStatus.OPEN].length > 0 && (
+            <TaskList tasks={tasks[TaskStatus.OPEN]} type={TaskStatus.OPEN} />
+          )}
+          {tasks[TaskStatus.IN_PROGRESS].length > 0 && (
+            <TaskList
+              tasks={tasks[TaskStatus.IN_PROGRESS]}
+              type={TaskStatus.IN_PROGRESS}
+            />
+          )}
+          {tasks[TaskStatus.DONE].length > 0 && (
+            <TaskList tasks={tasks[TaskStatus.DONE]} type={TaskStatus.DONE} />
+          )}
+        </Flex>
       </Flex>
     </Flex>
   );
