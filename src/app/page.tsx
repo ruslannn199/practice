@@ -4,7 +4,8 @@ import { request } from "@/utils";
 import { Divider, Flex } from "antd";
 
 export default async function Home() {
-  const tasks = ((await (await request("tasks", { next: { tags: ['task'] } })).json() as PaginatedResponse<Task>).items || []).reduce(
+  const tasksList = (await (await request("tasks", { next: { tags: ['task'] } })).json() as PaginatedResponse<Task>).items;
+  const tasks = tasksList.reduce(
     (acc: Record<TaskStatus, Task[]>, task) => {
       acc[task.status].push(task);
 
@@ -27,7 +28,7 @@ export default async function Home() {
         style={{ width: "calc(100vw - 64px)", padding: "32px" }}
         align="flex-start"
       >
-        <CreateTask />
+        <CreateTask tasks={tasksList} />
         <Flex vertical style={{ width: "100%", marginTop: '32px' }} gap={32}>
           <TaskList tasks={tasks[TaskStatus.OPEN]} type={TaskStatus.OPEN} />
           <TaskList

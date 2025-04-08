@@ -1,18 +1,23 @@
 "use client";
 
 import { Task, TaskStatus } from "@/server/types";
-import { request } from '@/utils';
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, DatePicker, Form, Input, Modal } from "antd";
 import FormItem from "antd/es/form/FormItem";
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { createTaskAction } from './createTaskAction';
+import { useNotification } from '@/hooks';
 
 type Values = Omit<Task, "id" | "status">;
 
-export const CreateTask: FC = () => {
+type Props = {
+  tasks: Task[];
+}
+
+export const CreateTask = ({ tasks }: Props) => {
   const [form] = Form.useForm<Values>();
   const [open, setOpen] = useState(false);
+  useNotification(tasks);
 
   const onCreate = async (values: Values) => {
     const dayjs = (await import('dayjs')).default;

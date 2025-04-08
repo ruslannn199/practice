@@ -4,6 +4,7 @@ import 'normalize.css';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import '@ant-design/v5-patch-for-react-19';
 import { ConfigProvider } from '@/components';
+import { App } from 'antd';
 const geistSans = Roboto({
   variable: "--font-roboto",
   subsets: ["latin", 'cyrillic'],
@@ -25,7 +26,9 @@ export default function RootLayout({
       <body className={geistSans.className}>
         <AntdRegistry>
           <ConfigProvider>
-            {children}
+            <App>
+              {children}
+            </App>
           </ConfigProvider>
         </AntdRegistry>
       </body>
