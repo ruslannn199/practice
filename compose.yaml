@@ -17,11 +17,12 @@ services:
     container_name: todo_admin
     image: dpage/pgadmin4:latest
     environment:
-      - PGADMIN_DEFAULT_EMAIL=rootUser@mail.ru
-      - PGADMIN_DEFAULT_PASSWORD=1234
+      - PGADMIN_DEFAULT_EMAIL=admin@pgadmin.com
+      - PGADMIN_DEFAULT_PASSWORD=wlad2dads
     ports:
       - "80:80"
-    restart: always
+    depends_on:
+      - postgres
 
 volumes:
   data:
