@@ -2,6 +2,13 @@ import { CreateTask, TaskList, Title } from "@/components";
 import { PaginatedResponse, Task, TaskStatus } from "@/server/types";
 import { request } from "@/utils";
 import { Divider, Flex } from "antd";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Task Manager',
+  description: 'Управление задачами',
+  keywords: ['задача', 'управление', 'управление задачами'],
+};
 
 export default async function Home() {
   const tasksList = (await (await request("tasks", { next: { tags: ['task'] } })).json() as PaginatedResponse<Task>).items;
